@@ -18,6 +18,19 @@
 void add_circle( struct matrix * points,
                  double cx, double cy, double cz,
                  double r, double step ) {
+  double x0,y0,x1,y1,i;
+  step* = 1000;
+  i=0;
+  x0 = r*cos(i/1000*2*M_PI)+cx;
+  y0 = r*sin(i/1000*2*M_PI)+cy;
+  while (i <= 1000) {
+    i += step;
+    x1 = r*cos(i/1000*2*M_PI)+cx;
+    y1 = r*sin(i/1000*2*M_PI)+cy;
+    add_edge(points,x0,y0,0,x1,y1,0);
+    x0 = x1;
+    y0 = y1;
+  }  
 }
 
 /*======== void add_curve() ==========
@@ -43,6 +56,85 @@ void add_curve( struct matrix *points,
                 double x2, double y2, 
                 double x3, double y3, 
                 double step, int type ) {
+  i/1000*2*M_PI)+cx;
+    y1 = r*sin(i/1000*2*M_PI)+cy;
+    add_edge(points,x0,y0,0,x1,y1,0);
+    x0 = x1;
+    y0 = y1;
+  }  
+}
+
+/*======== void add_curve() ==========
+Inputs:   struct matrix *points
+         double x0
+         double y0
+         double x1
+         double y1
+         double x2
+         double y2
+         double x3
+         double y3
+         double step
+         int type
+Returns:
+Adds the curve bounded by the 4 points passsed as parameters
+of type specified in type (see matrix.h for curve type constants)
+to the matrix points
+====================*/
+void add_curve( struct matrix *points, 
+                double x0, double y0, 
+                double x1, double y1, 
+                double x2, double y2, 
+                double x3, double y3, 
+                double step, int type ) {
+  i/1000*2*M_PI)+cx;
+    y1 = r*sin(i/1000*2*M_PI)+cy;
+    add_edge(points,x0,y0,0,x1,y1,0);
+    x0 = x1;
+    y0 = y1;
+  }  
+}
+
+/*======== void add_curve() ==========
+Inputs:   struct matrix *points
+         double x0
+         double y0
+         double x1
+         double y1
+         double x2
+         double y2
+         double x3
+         double y3
+         double step
+         int type
+Returns:
+Adds the curve bounded by the 4 points passsed as parameters
+of type specified in type (see matrix.h for curve type constants)
+to the matrix points
+====================*/
+void add_curve( struct matrix *points, 
+                double x0, double y0, 
+                double x1, double y1, 
+                double x2, double y2, 
+                double x3, double y3, 
+                double step, int type ) {
+  struct matrix * x = generate_curve_coefs(x0,x1,x2,x3,type);
+  struct matrix * y = generate_curve_coefs(y0,y1,y2,y3,type);
+  double cx0,cy0,cx1,cy1
+  double i=0;
+  step*=1000;
+  cx0=x0;
+  cy0=y0;
+  while (i<=1000) {
+    i+=step;
+    cx1=(x->m[0][0])*pow(i/1000,3)+(x->m[1][0])*pow(i/1000,2)+(x->m[2][0])*(i/1000)+x->m[3][0];
+    cy1=(y->m[0][0])*pow(i/1000,3)+(y->m[1][0])*pow(i/1000,2)+(y->m[2][0])*(i/1000)+y->m[3][0];
+    add_edge(points,cx0,cy0,0,cx1,cy1,0);
+    cx0=cx1;
+    cy0=cy1;
+  }    
+  free_matrix(x);
+  free_matrix(y); 
 }
 
 
